@@ -33,7 +33,7 @@ public:
 		return id;
 	}
 	string getSaveFormat() {
-		return id + "," + title + "," + author + "," + (isBorrowed ? "1" : "0");
+		return to_string(id) + "," + title + "," + author + "," + (isBorrowed ? "1" : "0");
 	}
 };
 
@@ -54,10 +54,10 @@ public:
 
 		if (file.is_open()) {
 			
-			stringstream ss(line);
+			
 			
 			while (getline(file,line)) {
-				
+				stringstream ss(line);
 				string idStr, title, author, statusStr;
 				char del = ',';
 
@@ -140,7 +140,7 @@ int main() {
 		cout << "1.List All Books"<<endl;
 		cout << "2. Borrow a Book" << endl;
 		cout << "3.Return a Book" << endl;
-		cout << "Save and Exit" << endl;
+		cout << "4.Save and Exit" << endl;
 		cin >> selection;
 
 		switch (selection)
