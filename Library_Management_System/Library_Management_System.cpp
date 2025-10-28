@@ -18,7 +18,7 @@ public:
 		this->isBorrowed = isBorrowed;
 	}
 	void display() {
-		cout << "ID:" << id << "Title:" << title << "Author:" << author << "[" << (isBorrowed ? "Borrowed" : "Available") << "]"<<endl;
+		cout << "ID: " << id << " | Title: " << title << "| Author: " << author << "[" << (isBorrowed ? "Borrowed" : "Available") << "]"<<endl;
 	}
 	void borrowBook() {
 		isBorrowed = true;
@@ -89,6 +89,8 @@ public:
 			for (int i = 0; i < bookcount; i++) {
 				file << bookCatalog[i].getSaveFormat()<<endl;
 			}
+			file.close();
+			cout << "Book saved succesfully.";
 		}
 	}
 	void listAllBooks() {
@@ -106,27 +108,26 @@ public:
 				else {
 					cout << "Book is already borrowed.";
 				}
+				
 			}
-			else {
-				cout << "Book not found.";
-			}
+			
 		}
+		
 	}
 	void returnBook(int bookID) {
 		for (int i = 0; i < bookcount; i++) {
 			if (bookCatalog[i].getID() == bookID) {
 				if (!bookCatalog[i].isAvailable()) {
-					bookCatalog[i].borrowBook();
+					bookCatalog[i].returnBook();
 					cout << "Book returned succesfully.";
 				}
 				else {
 					cout << "Book is already borrowed.";
 				}
 			}
-			else {
-				cout << "Book not found.";
-			}
+			
 		}
+		
 	}
 	
 };
@@ -138,7 +139,7 @@ int main() {
 	{
 		cout << "--------Library Menu--------"<<endl;
 		cout << "1.List All Books"<<endl;
-		cout << "2. Borrow a Book" << endl;
+		cout << "2.Borrow a Book" << endl;
 		cout << "3.Return a Book" << endl;
 		cout << "4.Save and Exit" << endl;
 		cin >> selection;
@@ -167,5 +168,5 @@ int main() {
 			break;
 		}
 	} while (selection!=4);
-
+	return 0;
 }
