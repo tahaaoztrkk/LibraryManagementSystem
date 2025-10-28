@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 using namespace std;
 
 class Book {
@@ -48,10 +50,38 @@ public:
 	}
 	void loadBooksFromFile() {
 		ifstream file(bookFileName);
-		if (file.is_open()) {
+		string line;
 
+		if (file.is_open()) {
+			
+			stringstream ss(line);
+			
+			while (getline(file,line)) {
+				
+				string idStr, title, author, statusStr;
+				char del = ',';
+
+				getline(ss, idStr, del);
+				getline(ss, title, del);
+				getline(ss, author, del);
+				getline(ss, statusStr, del);
+
+				int id = stoi(idStr);
+				bool status = (statusStr == "1");
+
+				bookCatalog[bookcount].setBookDetails(id, title, author, status);
+				bookcount++;
+
+			}
 		}
+		else
+		{
+			cout << "File can not open.";
+		}
+		file.close();
+		cout << "Total book is: " << bookcount << endl;
 	}
+	
 
 };
 
