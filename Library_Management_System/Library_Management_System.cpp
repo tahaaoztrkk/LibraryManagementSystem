@@ -10,12 +10,14 @@ private:
 	string title;
 	string author;
 	bool isBorrowed;
+	
 public:
 	void setBookDetails(int id,string title,string author,bool isBorrowed) {
 		this->id = id;
 		this->title = title;
 		this->author = author;
 		this->isBorrowed = isBorrowed;
+
 	}
 	void display() {
 		cout << "ID: " << id << " | Title: " << title << "| Author: " << author << "[" << (isBorrowed ? "Borrowed" : "Available") << "]"<<endl;
@@ -129,19 +131,70 @@ public:
 		}
 		
 	}
+
+	void checkStudentBooks(int stdid) {
+		bool found = false;
+
+		cout << "Borrowed books: ";
+
+		for (int i = 0; i < bookcount; i++) {
+			if (!bookCatalog[i].isAvailable() && bookCatalog[i].getID() == stdid) {
+				bookCatalog[i].display();
+				found= true;
+			}
+		}
+		if (!found) {
+			cout << "You have not any books. "<<endl;
+		}
+	}
+
+	void addBook() {
+		int newID;
+		string newTitle, newAuthor;
+
+
+		for (int i = 0; i < bookcount; i++) {
+			cout << "Enter book ID: ";
+			cin >> newID;
+			if (bookCatalog[i].getID() == newID) {
+				cout << "ID already exist. Enter another ID!"<<endl;
+			}
+		}
+		cin.ignore();
+
+		cout << "Enter book title: ";
+		getline(cin, newTitle);
+
+		cout << "Enter book author: ";
+		getline(cin, newAuthor);
+
+		bookCatalog[bookcount].setBookDetails(newID, newTitle, newAuthor, false);
+		bookcount++;
+		cout << "Book added successfully!" << endl;
+
+		saveBooksToFile();
+	}
 	
 };
 
 int main() {
+	int selection, id, stdid;
+	cout << "Please enter your student id: ";
+	cin >> stdid;
+
 	Library myLibrary("books.txt");
-	int selection,id;
+	myLibrary.checkStudentBooks(stdid);
 	do
-	{
+	{   
+		
 		cout << "--------Library Menu--------"<<endl;
 		cout << "1.List All Books"<<endl;
 		cout << "2.Borrow a Book" << endl;
 		cout << "3.Return a Book" << endl;
-		cout << "4.Save and Exit" << endl;
+		cout << "4.Add New Book" << endl;
+		cout << "5.Save and Exit" << endl;
+		
+		cout << "Enter your selection between 1-5: ";
 		cin >> selection;
 
 		switch (selection)
@@ -163,10 +216,14 @@ int main() {
 			break;
 
 		case 4:
+			myLibrary.addBook();
+			break;
+
+		case 5:
 			myLibrary.saveBooksToFile();
 			cout << "Saving changes... Goodbye!";
 			break;
 		}
-	} while (selection!=4);
+	} while (selection!=5);
 	return 0;
 }
