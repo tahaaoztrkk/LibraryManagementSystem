@@ -132,21 +132,6 @@ public:
 		
 	}
 
-	void checkStudentBooks(int stdid) {
-		bool found = false;
-
-		cout << "Borrowed books: ";
-
-		for (int i = 0; i < bookcount; i++) {
-			if (!bookCatalog[i].isAvailable() && bookCatalog[i].getID() == stdid) {
-				bookCatalog[i].display();
-				found= true;
-			}
-		}
-		if (!found) {
-			cout << "You have not any books. "<<endl;
-		}
-	}
 
 	void addBook() {
 		int newID;
@@ -183,7 +168,7 @@ int main() {
 	cin >> stdid;
 
 	Library myLibrary("books.txt");
-	myLibrary.checkStudentBooks(stdid);
+	
 	do
 	{   
 		
