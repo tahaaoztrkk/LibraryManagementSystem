@@ -1,7 +1,7 @@
 # Library_Management_System
 # Overview
 This is a simple Library Management System written in C++, designed for managing books in a library using a local text file (books.txt) for data storage.
-It allows users (students) to list, borrow, return, and add books through a console interface.
+It allows users (students) to list, borrow, return, and add books(extra added) through a console interface.
 
 --Display all available and borrowed books
 -- Borrow a book by its ID
